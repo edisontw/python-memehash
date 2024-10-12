@@ -1,6 +1,6 @@
 Python module for memehash hashing: meme_hash (v1.0)
 
-Install:(Python 2.7 is required as well as gcc)
+Install:
 
 python setup.py build
 
