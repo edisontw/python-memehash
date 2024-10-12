@@ -1,7 +1,7 @@
-x11_hash (v1.4)
+meme_hash (v1.0)
 ===========================
 
-Python module for Dash's X11 hashing.
+Python module for memehash hashing.
 
 
 Install
@@ -19,9 +19,7 @@ After installation, test hash.
 
     $ python test.py
 
-Credits
--------
-
+Credits (X11):
 * Module written by @chaeplin https://github.com/chaeplin/xcoin-hash
 * Module maintained by @eduffield https://github.com/darkcoinproject/xcoin-hash
 * Module maintained by @flare https://github.com/nightlydarkcoin/xcoin-hash
