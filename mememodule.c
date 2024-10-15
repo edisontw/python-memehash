@@ -1,5 +1,4 @@
 #include <Python.h>
-
 #include "memehash.h"  // memehash.h
 
 static PyObject *meme_getpowhash(PyObject *self, PyObject *args) {
@@ -10,6 +9,7 @@ static PyObject *meme_getpowhash(PyObject *self, PyObject *args) {
 #else
     PyStringObject *input;
 #endif
+
     if (!PyArg_ParseTuple(args, "S", &input))
         return NULL;
 
@@ -17,9 +17,9 @@ static PyObject *meme_getpowhash(PyObject *self, PyObject *args) {
     output = PyMem_Malloc(32);
 
 #if PY_MAJOR_VERSION >= 3
-    meme_hash((char *)PyBytes_AsString((PyObject*) input), output);  //  meme_hash
+    meme_hash((char *)PyBytes_AsString((PyObject*) input), output, PyBytes_Size((PyObject*) input));  // transfer input lenght
 #else
-    meme_hash((char *)PyString_AsString((PyObject*) input), output);  //  meme_hash 
+    meme_hash((char *)PyString_AsString((PyObject*) input), output, PyString_Size((PyObject*) input));  // transfer input lenght
 #endif
 
     Py_DECREF(input);
@@ -28,6 +28,7 @@ static PyObject *meme_getpowhash(PyObject *self, PyObject *args) {
 #else
     value = Py_BuildValue("s#", output, 32);
 #endif
+
     PyMem_Free(output);
     return value;
 }
