@@ -14,8 +14,7 @@ meme_hash_module = Extension('meme_hash',
                                       'sha3/echo.c',
                                       'sha3/luffa.c',
                                       'sha3/simd.c',
-                                      'sha3/shavite.c',
-                                      'sha3/sha2.c'],
+                                      'sha3/shavite.c'],
                              include_dirs=['.', './sha3'])
 
 setup(name='meme_hash',
