@@ -14,11 +14,11 @@
 
 void meme_hash(const char* input, char* output, uint32_t len)
 {
-	sph_blake512_context     ctx_blake;
-	sph_cubehash512_context  ctx_cubehash1;
-	sph_shavite512_context   ctx_shavite1;
-	sph_simd512_context      ctx_simd1;
-	sph_echo512_context      ctx_echo1;
+    sph_blake512_context     ctx_blake;
+    sph_cubehash512_context  ctx_cubehash1;
+    sph_shavite512_context   ctx_shavite1;
+    sph_simd512_context      ctx_simd1;
+    sph_echo512_context      ctx_echo1;
     sph_sha256_context       ctx_sha;
 
     uint32_t hash[16];
