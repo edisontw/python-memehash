@@ -53,6 +53,11 @@
 #define SSG2_0(x)      (ROTR(x, 7) ^ ROTR(x, 18) ^ SPH_T32((x) >> 3))
 #define SSG2_1(x)      (ROTR(x, 17) ^ ROTR(x, 19) ^ SPH_T32((x) >> 10))
 
+static const sph_u32 H224[8] = {
+	SPH_C32(0xC1059ED8), SPH_C32(0x367CD507), SPH_C32(0x3070DD17),
+	SPH_C32(0xF70E5939), SPH_C32(0xFFC00B31), SPH_C32(0x68581511),
+	SPH_C32(0x64F98FA7), SPH_C32(0xBEFA4FA4)
+};
 
 static const sph_u32 H256[8] = {
 	SPH_C32(0x6A09E667), SPH_C32(0xBB67AE85), SPH_C32(0x3C6EF372),
@@ -615,6 +620,20 @@ sha2_round(const unsigned char *data, sph_u32 r[8])
 #undef SHA2_IN
 }
 
+/* see sph_sha2.h */
+void
+sph_sha224_init(void *cc)
+{
+	sph_sha224_context *sc;
+
+	sc = cc;
+	memcpy(sc->val, H224, sizeof H224);
+#if SPH_64
+	sc->count = 0;
+#else
+	sc->count_high = sc->count_low = 0;
+#endif
+}
 
 /* see sph_sha2.h */
 void
@@ -631,6 +650,51 @@ sph_sha256_init(void *cc)
 #endif
 }
 
+#define RFUN   sha2_round
+#define HASH   sha224
+#define BE32   1
+#include "md_helper.c"
+
+/* see sph_sha2.h */
+void
+sph_sha224_close(void *cc, void *dst)
+{
+	sha224_close(cc, dst, 7);
+//	sph_sha224_init(cc);
+}
+
+/* see sph_sha2.h */
+void
+sph_sha224_addbits_and_close(void *cc, unsigned ub, unsigned n, void *dst)
+{
+	sha224_addbits_and_close(cc, ub, n, dst, 7);
+//	sph_sha224_init(cc);
+}
+
+/* see sph_sha2.h */
+void
+sph_sha256_close(void *cc, void *dst)
+{
+	sha224_close(cc, dst, 8);
+//	sph_sha256_init(cc);
+}
+
+/* see sph_sha2.h */
+void
+sph_sha256_addbits_and_close(void *cc, unsigned ub, unsigned n, void *dst)
+{
+	sha224_addbits_and_close(cc, ub, n, dst, 8);
+//	sph_sha256_init(cc);
+}
+
+/* see sph_sha2.h */
+void
+sph_sha224_comp(const sph_u32 msg[16], sph_u32 val[8])
+{
+#define SHA2_IN(x)   msg[x]
+	SHA2_ROUND_BODY(SHA2_IN, val);
+#undef SHA2_IN
+}
 
 #ifdef __cplusplus
 }
