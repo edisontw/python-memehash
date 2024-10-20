@@ -5,6 +5,7 @@ meme_hash_module = Extension('meme_hash',
                              sources=['mememodule.c',
                                       'memehash.c',
                                       'sha256.c',
+                                      'sha3/md_helper.c'
                                       'sha3/blake.c',
                                       'sha3/bmw.c',
                                       'sha3/groestl.c',
