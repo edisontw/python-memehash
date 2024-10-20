@@ -165,7 +165,7 @@ void sph_sha256(void *cc, const void *data, size_t len);
 #endif
 
 #ifndef DOXYGEN_IGNORE
-#define sph_sha256   sph_sha224
+/** #define sph_sha256   sph_sha224 */
 #endif
 
 /**
