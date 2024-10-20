@@ -54,6 +54,10 @@ extern "C"{
     #define SPH_EXPORT __attribute__((visibility("default")))
 #endif
 
+SPH_EXPORT void sph_sha224(void *cc, const void *data, size_t len);
+SPH_EXPORT void sph_sha256(void *cc, const void *data, size_t len);
+SPH_EXPORT void sph_sha224_comp(const sph_u32 msg[16], sph_u32 val[8]);
+SPH_EXPORT void sph_sha256_comp(const sph_u32 msg[16], sph_u32 val[8]);
 
 /**
  * Output size (in bits) for SHA-224.
