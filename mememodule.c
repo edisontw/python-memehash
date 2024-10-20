@@ -1,6 +1,6 @@
 #include <Python.h>
 #include "memehash.h"  // memehash.h
-#include "sha3/sha256.h"
+#include "sha3/sph_sha256.h"
 
 static PyObject *meme_getpowhash(PyObject *self, PyObject *args) {
     char *output;
