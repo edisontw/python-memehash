@@ -17,7 +17,10 @@ meme_hash_module = Extension('meme_hash',
                                       'sha3/simd.c',
                                       'sha3/shavite.c',
                                       'sha3/sph_sha2.c'],
-                             include_dirs=['.', './sha3'])
+    include_dirs=['.', './sha3'],
+    extra_compile_args=['-fvisibility=default'],
+    extra_link_args=['-Wl,--export-dynamic']
+)
 
 setup(name='meme_hash',
       version='1.0',
