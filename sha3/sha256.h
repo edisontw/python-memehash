@@ -1,34 +1,28 @@
 /*********************************************************************
 * Filename:   sha256.h
-* Author:     Brad Conte (brad AT bradconte.com)
+* Original Author:     Brad Conte (brad AT bradconte.com)
 * Copyright:
 * Disclaimer: This code is presented "as is" without any guarantees.
 * Details:    Defines the API for the corresponding SHA1 implementation.
 *********************************************************************/
 
-#ifndef SHA256_H
-#define SHA256_H
+#ifndef SPH_SHA256_H
+#define SPH_SHA256_H
 
-/*************************** HEADER FILES ***************************/
 #include <stddef.h>
-
-/****************************** MACROS ******************************/
-#define SHA256_BLOCK_SIZE 32            // SHA256 outputs a 32 byte digest
-
-/**************************** DATA TYPES ****************************/
-typedef unsigned char BYTE;             // 8-bit byte
-typedef unsigned int  WORD;             // 32-bit word, change to "long" for 16-bit machines
+#include "sph_types.h"
 
 typedef struct {
-	BYTE data[64];
-	WORD datalen;
-	unsigned long long bitlen;
-	WORD state[8];
-} SHA256_CTX;
+    unsigned char buf[64];
+    size_t ptr;
+    sph_u32 state[8];
+    sph_u64 count;
+} sph_sha256_context;
 
-/*********************** FUNCTION DECLARATIONS **********************/
-void sha256_init(SHA256_CTX *ctx);
-void sha256_update(SHA256_CTX *ctx, const BYTE data[], size_t len);
-void sha256_final(SHA256_CTX *ctx, BYTE hash[]);
+void sph_sha256_init(sph_sha256_context *cc);
+void sph_sha256(sph_sha256_context *cc, const void *data, size_t len);
+void sph_sha256_close(sph_sha256_context *cc, void *dst);
+void sph_sha256_addbits_and_close(sph_sha256_context *cc, unsigned ub, unsigned n, void *dst);
+void sph_sha256_comp(const sph_u32 msg[16], sph_u32 val[8]);
 
-#endif   // SHA256_H
+#endif
