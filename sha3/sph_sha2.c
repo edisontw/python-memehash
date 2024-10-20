@@ -678,6 +678,12 @@ sph_sha224_addbits_and_close(void *cc, unsigned ub, unsigned n, void *dst)
 //	sph_sha224_init(cc);
 }
 
+/* Explicitly define sph_sha224 function */
+void sph_sha224(void *cc, const void *data, size_t len)
+{
+    sha224(cc, data, len);
+}
+
 /* see sph_sha2.h */
 void
 sph_sha256_close(void *cc, void *dst)
