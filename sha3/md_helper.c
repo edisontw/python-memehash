@@ -123,114 +123,56 @@
 
 #ifndef CLOSE_ONLY
 
-#ifdef SPH_UPTR
-static void
-SPH_XCAT(HASH, _short)(void *cc, const void *data, size_t len)
+/* Ensure SPH_EXPORT is defined */
+#ifndef SPH_EXPORT
+#ifdef _MSC_VER
+    #define SPH_EXPORT __declspec(dllexport)
 #else
+    #define SPH_EXPORT __attribute__((visibility("default")))
+#endif
+#endif
+
+/* Define the function without conditional compilation */
 SPH_EXPORT void
 SPH_XCAT(sph_, HASH)(void *cc, const void *data, size_t len)
-#endif
 {
-	SPH_XCAT(sph_, SPH_XCAT(HASH, _context)) *sc;
-	size_t current;
+    SPH_XCAT(sph_, SPH_XCAT(HASH, _context)) *sc;
+    size_t current;
 
-	sc = cc;
+    sc = cc;
 #if SPH_64
-	current = (unsigned)sc->count & (SPH_BLEN - 1U);
+    current = (unsigned)sc->count & (SPH_BLEN - 1U);
 #else
-	current = (unsigned)sc->count_low & (SPH_BLEN - 1U);
+    current = (unsigned)sc->count_low & (SPH_BLEN - 1U);
 #endif
-	while (len > 0) {
-		size_t clen;
+    while (len > 0) {
+        size_t clen;
 #if !SPH_64
-		sph_u32 clow, clow2;
+        sph_u32 clow, clow2;
 #endif
 
-		clen = SPH_BLEN - current;
-		if (clen > len)
-			clen = len;
-		memcpy(sc->buf + current, data, clen);
-		data = (const unsigned char *)data + clen;
-		current += clen;
-		len -= clen;
-		if (current == SPH_BLEN) {
-			RFUN(sc->buf, SPH_VAL);
-			current = 0;
-		}
+        clen = SPH_BLEN - current;
+        if (clen > len)
+            clen = len;
+        memcpy(sc->buf + current, data, clen);
+        data = (const unsigned char *)data + clen;
+        current += clen;
+        len -= clen;
+        if (current == SPH_BLEN) {
+            RFUN(sc->buf, SPH_VAL);
+            current = 0;
+        }
 #if SPH_64
-		sc->count += clen;
+        sc->count += clen;
 #else
-		clow = sc->count_low;
-		clow2 = SPH_T32(clow + clen);
-		sc->count_low = clow2;
-		if (clow2 < clow)
-			sc->count_high ++;
+        clow = sc->count_low;
+        clow2 = SPH_T32(clow + clen);
+        sc->count_low = clow2;
+        if (clow2 < clow)
+            sc->count_high ++;
 #endif
-	}
+    }
 }
-
-#ifdef SPH_UPTR
-void
-SPH_XCAT(sph_, HASH)(void *cc, const void *data, size_t len)
-{
-	SPH_XCAT(sph_, SPH_XCAT(HASH, _context)) *sc;
-	unsigned current;
-	size_t orig_len;
-#if !SPH_64
-	sph_u32 clow, clow2;
-#endif
-
-	if (len < (2 * SPH_BLEN)) {
-		SPH_XCAT(HASH, _short)(cc, data, len);
-		return;
-	}
-	sc = cc;
-#if SPH_64
-	current = (unsigned)sc->count & (SPH_BLEN - 1U);
-#else
-	current = (unsigned)sc->count_low & (SPH_BLEN - 1U);
-#endif
-	if (current > 0) {
-		unsigned t;
-
-		t = SPH_BLEN - current;
-		SPH_XCAT(HASH, _short)(cc, data, t);
-		data = (const unsigned char *)data + t;
-		len -= t;
-	}
-#if !SPH_UNALIGNED
-	if (((SPH_UPTR)data & (SPH_WLEN - 1U)) != 0) {
-		SPH_XCAT(HASH, _short)(cc, data, len);
-		return;
-	}
-#endif
-	orig_len = len;
-	while (len >= SPH_BLEN) {
-		RFUN(data, SPH_VAL);
-		len -= SPH_BLEN;
-		data = (const unsigned char *)data + SPH_BLEN;
-	}
-	if (len > 0)
-		memcpy(sc->buf, data, len);
-#if SPH_64
-	sc->count += (sph_u64)orig_len;
-#else
-	clow = sc->count_low;
-	clow2 = SPH_T32(clow + orig_len);
-	sc->count_low = clow2;
-	if (clow2 < clow)
-		sc->count_high ++;
-	/*
-	 * This code handles the improbable situation where "size_t" is
-	 * greater than 32 bits, and yet we do not have a 64-bit type.
-	 */
-	orig_len >>= 12;
-	orig_len >>= 10;
-	orig_len >>= 10;
-	sc->count_high += orig_len;
-#endif
-}
-#endif
 
 #endif
 
