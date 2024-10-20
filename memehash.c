@@ -6,12 +6,7 @@
 #include "sha3/sph_shavite.h"
 #include "sha3/sph_simd.h"
 #include "sha3/sph_echo.h"
-#include "sha3/sph_sha2.h"
 #include "sha256.h"
-
-void sph_sha224(void *cc, const void *data, size_t len);  // Function prototype
-
-void *dummy_sph_sha224 = sph_sha224;  // Force linker to include sph_sha224
 
 void meme_hash(const char* input, char* output, uint32_t len) {
     // Define contexts for each hash algorithm
