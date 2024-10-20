@@ -664,6 +664,12 @@ sph_sha224_close(void *cc, void *dst)
 }
 
 /* see sph_sha2.h */
+/* SHA-256 functions */
+
+#define RFUN   sha2_round
+#undef HASH
+#define HASH   sha256
+#include "md_helper.c"
 void
 sph_sha224_addbits_and_close(void *cc, unsigned ub, unsigned n, void *dst)
 {
