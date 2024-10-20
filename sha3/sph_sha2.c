@@ -653,6 +653,7 @@ sph_sha256_init(void *cc)
 #define RFUN   sha2_round
 #define HASH   sha224
 #define BE32   1
+#undef SPH_UPTR  // Ensure SPH_UPTR is undefined
 #include "md_helper.c"
 
 /* see sph_sha2.h */
