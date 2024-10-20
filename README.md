@@ -20,8 +20,8 @@ Files Upload:
 
 sph_sha2.c
 sph_sha2.h
-sha256.c
-sha256.h
+sha256.c 
+sha256.h (sph_sha256.h)
 md_helper.c
 
 Error message:
