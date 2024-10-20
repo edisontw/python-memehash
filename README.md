@@ -15,6 +15,13 @@ Test:
 
 python3 test.py
 
+Files Upload:
+sph_sha2.c
+sph_sha2.h
+sha256.c
+sha256.h
+md_helper.c
+
 Error message:
 Traceback (most recent call last):
   File "/home/ubuntu/python-memehash/test.py", line 1, in <module>
