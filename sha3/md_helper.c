@@ -76,6 +76,9 @@
  * @author   Thomas Pornin <thomas.pornin@cryptolog.com>
  */
 
+#include <stddef.h>
+#include <string.h>
+
 #ifdef _MSC_VER
 #pragma warning (disable: 4146)
 #endif
