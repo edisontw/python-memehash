@@ -1,28 +1,27 @@
 from setuptools import setup, Extension
 
-# meme_hash_module
-meme_hash_module = Extension('meme_hash',
-                             sources=['mememodule.c',
-                                      'memehash.c',
-                                      'sha256.c',
-                                      'sha3/blake.c',
-                                      'sha3/bmw.c',
-                                      'sha3/groestl.c',
-                                      'sha3/jh.c',
-                                      'sha3/keccak.c',
-                                      'sha3/skein.c',
-                                      'sha3/cubehash.c',
-                                      'sha3/echo.c',
-                                      'sha3/luffa.c',
-                                      'sha3/simd.c',
-                                      'sha3/shavite.c',
-                                      'sha3/sph_sha2.c'],
-    include_dirs=['.', './sha3'],
-    extra_compile_args=['-fvisibility=default'],
-    extra_link_args=['-Wl,--export-dynamic']
+memehash_module = Extension('meme_hash',
+    sources = [
+        'mememodule.c',
+        'memehash.c',
+        'sha3/blake.c',
+        'sha3/cubehash.c',
+        'sha3/shavite.c',
+        'sha3/simd.c',
+        'sha3/echo.c',
+        'sha3/sha256.c'
+    ],
+    include_dirs = ['.', './sha3'],
+    extra_compile_args = ['-O2', '-funroll-loops', '-fomit-frame-pointer'],
 )
 
-setup(name='meme_hash',
-      version='1.0',
-      description='Binding for Meme proof of work hashing.',
-      ext_modules=[meme_hash_module])
+setup (
+    name = 'meme_hash',
+    version = '1.0',
+    description = 'Bindings for Memehash proof of work function',
+    author = 'Edison Huang',
+    url = 'https://github.com/edisontw/python-memehash',
+    ext_modules = [memehash_module],
+    py_modules = ['meme_hash'],
+    test_suite = 'test',
+)
