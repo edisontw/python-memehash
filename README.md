@@ -14,3 +14,9 @@ python setup.py install
 Test:
 
 python3 test.py
+
+Error message:
+Traceback (most recent call last):
+  File "/home/ubuntu/python-memehash/test.py", line 1, in <module>
+    import meme_hash
+ImportError: /home/ubuntu/.local/lib/python3.10/site-packages/meme_hash.cpython-310-aarch64-linux-gnu.so: undefined symbol: sph_sha224
