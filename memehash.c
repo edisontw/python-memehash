@@ -7,6 +7,7 @@
 #include "sha3/sph_simd.h"
 #include "sha3/sph_echo.h"
 #include "sha3/sph_sha2.h"
+#include "sha256.h"
 
 void meme_hash(const char* input, char* output, uint32_t len) {
     // Define contexts for each hash algorithm
