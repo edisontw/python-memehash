@@ -47,6 +47,14 @@
 extern "C"{
 #endif
 
+// sph_sha2.h
+#ifdef _MSC_VER
+    #define SPH_EXPORT __declspec(dllexport)
+#else
+    #define SPH_EXPORT __attribute__((visibility("default")))
+#endif
+
+
 /**
  * Output size (in bits) for SHA-224.
  */
