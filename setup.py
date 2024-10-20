@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 # meme_hash_module
 meme_hash_module = Extension('meme_hash',
