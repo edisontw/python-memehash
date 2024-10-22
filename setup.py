@@ -12,7 +12,8 @@ memehash_module = Extension('meme_hash',
         'sha3/sha256.c'
     ],
     include_dirs = ['.', './sha3'],
-    extra_compile_args = ['-O2', '-funroll-loops', '-fomit-frame-pointer'],
+    extra_compile_args = ['-O2', '-funroll-loops', '-fomit-frame-pointer', '-DSPH_SMALL_FOOTPRINT=1'],
+    define_macros = [('SPH_SMALL_FOOTPRINT', '1'), ('SPH_COMPACT_BLAKE', '1')]
 )
 
 setup (
@@ -23,5 +24,4 @@ setup (
     url = 'https://github.com/edisontw/python-memehash',
     ext_modules = [memehash_module],
     py_modules = ['meme_hash'],
-    test_suite = 'test',
 )
