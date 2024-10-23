@@ -17,17 +17,31 @@ memehash_module = Extension('meme_hash',
         '-funroll-loops', 
         '-fomit-frame-pointer',
         '-DSPH_SMALL_FOOTPRINT=1',
-        '-fPIC'  # Ensure position-independent code
+        '-fPIC',
+        '-fvisibility=hidden',  # Hide all symbols by default
+        '-DSPH_UPTR=64',        # Specify pointer size for aarch64
+        '-DSPH_KECCAK_UNROLL=0'
     ],
     extra_link_args = [
-        '-Wl,--export-dynamic'  # Export all symbols for dynamic linking
+        '-Wl,--export-dynamic',
+        '-Wl,--version-script=' + """VERSION
+{
+    global:
+        extern "C" {
+            sph_sha*;
+            PyInit_meme_hash;
+        };
+    local: *;
+};"""
     ],
     define_macros = [
         ('SPH_SMALL_FOOTPRINT', '1'),
         ('SPH_COMPACT_BLAKE', '1'),
         ('SPH_KECCAK_UNROLL', '0'),
         ('SPH_SMALL_FOOTPRINT_SIMD', '1'),
-        ('SPH_SMALL_FOOTPRINT_ECHO', '1')
+        ('SPH_SMALL_FOOTPRINT_ECHO', '1'),
+        ('SPH_UPTR', '64'),
+        ('SPH_SHA256_FAST', '1')
     ]
 )
 
@@ -37,6 +51,6 @@ setup (
     description = 'Bindings for Memehash proof of work function',
     author = 'Edison Huang',
     author_email = 'your.email@example.com',
-    url = 'https://github.com/edisontw/python-memehash',
+    url = 'https://github.com/yourusername/meme_hash',
     ext_modules = [memehash_module]
 )
