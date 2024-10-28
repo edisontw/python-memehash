@@ -44,12 +44,12 @@ void meme_hash(const char* input, char* output, uint32_t len) {
     sph_sha256_close(&ctx_sha256, hashA);
 
     sph_sha256_init(&ctx_sha256);
-    sph_sha256(&ctx_sha256, hashA, 32);
+    sph_sha256(&ctx_sha256, hashA, 64);
     sph_sha256_close(&ctx_sha256, hashA);
 
     sph_sha256_init(&ctx_sha256);
-    sph_sha256(&ctx_sha256, hashA, 32);
+    sph_sha256(&ctx_sha256, hashA, 64);
     sph_sha256_close(&ctx_sha256, hash);
 
-    memcpy(output, hash, 32);
+    memcpy(output, hash, 64);
 }
