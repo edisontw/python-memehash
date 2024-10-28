@@ -10,7 +10,6 @@ memehash_module = Extension('meme_hash',
         'sha3/simd.c',
         'sha3/echo.c',
         'sha3/sha2.c'
-        'sha3/sph_sha2.c'
     ],
     include_dirs = ['.', './sha3'],
     extra_compile_args = ['-O2', '-funroll-loops', '-fomit-frame-pointer', '-DSPH_SMALL_FOOTPRINT=1'],
