@@ -1,16 +1,20 @@
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include "memehash.h"  // memehash.h
 #include "sha3/sph_sha2.h"
 
 static PyObject *meme_getpowhash(PyObject *self, PyObject *args) {
-    char *output;
+    const char *output;
+    Py_ssize_t input_len;
     PyObject *value;
 #if PY_MAJOR_VERSION >= 3
     PyBytesObject *input;
 #else
     PyStringObject *input;
 #endif
-
+    if (!PyArg_ParseTuple(args, "s#", &input, &input_len))
+        return NULL;
+    
     if (!PyArg_ParseTuple(args, "S", &input))
         return NULL;
 
