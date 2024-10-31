@@ -19,6 +19,13 @@ void meme_hash(const char* input, char* output, uint32_t len) {
     uint32_t hash[16];
     uint32_t hashA[16];
 
+    // Dummy reference to sph_sha224 to prevent linker errors
+    sph_sha224_context dummy_ctx;
+    sph_sha224_init(&dummy_ctx);
+    sph_sha224(&dummy_ctx, input, len);
+    unsigned char dummy_hash[28];
+    sph_sha224_close(&dummy_ctx, dummy_hash);
+    
     sph_blake512_init(&ctx_blake);
     sph_blake512(&ctx_blake, input, len);
     sph_blake512_close(&ctx_blake, hash);
