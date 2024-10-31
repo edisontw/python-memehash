@@ -2,7 +2,7 @@ Python module for memehash hashing: meme_hash (v1.0)
 
 Download: git clone https://github.com/edisontw/python-memehash.git
 
-Install: python setup.py build & python setup.py install
+Install: python3 setup.py build & python3 setup.py install
 
 Files Upload: sha2.c, sph_sha2.h
 
