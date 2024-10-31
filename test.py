@@ -9,7 +9,7 @@ header_hex = (
     "3f7ab2aa69fd0ea038de256393455890e45cba83ca0f76fc506c416c96109014" +  # Merkle root hash
     "646da2eb" +  # Timestamp
     "1e0fffff" +  # Difficulty target
-    "05e205"  # Nonce
+    "05e1e1d"  # Nonce
 )
 
 # Known correct hash value for block 1
