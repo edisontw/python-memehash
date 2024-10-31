@@ -1,3 +1,13 @@
+#include "memehash.h"
+#include <stdint.h>
+#include <string.h>
+#include "sha3/sph_blake.h"
+#include "sha3/sph_cubehash.h"
+#include "sha3/sph_shavite.h"
+#include "sha3/sph_simd.h"
+#include "sha3/sph_echo.h"
+#include "sha3/sph_sha2.h"
+
 void meme_hash(const char* input, char* output, uint32_t len) {
     sph_blake512_context     ctx_blake;
     sph_cubehash512_context  ctx_cubehash;
