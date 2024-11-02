@@ -84,7 +84,7 @@ void meme_hash(const char* input, char* output, uint32_t len) {
     print_hash(hash7, 64);
 
     // Copy the final hash (upper 256 bits)
-    memcpy(output, hash7 + 32, 32);
+    memcpy(output, hash7, 32);
 }
 
 
