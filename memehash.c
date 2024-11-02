@@ -1,3 +1,7 @@
+所有的函數處理都是64，抱括SHA-256，最後輸出的結果再 trim256
+
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
 #include "memehash.h"
 #include <stdint.h>
 #include <string.h>
@@ -24,7 +28,7 @@ void meme_hash(const char* input, char* output, uint32_t len) {
     sph_sha224(&dummy_ctx, input, len);
     unsigned char dummy_hash[28];
     sph_sha224_close(&dummy_ctx, dummy_hash);
-    
+
     // BLAKE-512
     sph_blake512_init(&ctx_blake);
     sph_blake512(&ctx_blake, input, len);
@@ -84,6 +88,7 @@ void meme_hash(const char* input, char* output, uint32_t len) {
     // Copy the final hash (upper 256 bits)
     memcpy(output, hash7 + 32, 32);
 }
+
 
 void print_hash(unsigned char* hash, int length) {
     for (int i = 0; i < length; ++i)
