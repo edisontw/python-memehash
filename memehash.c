@@ -67,21 +67,21 @@ void meme_hash(const char* input, char* output, uint32_t len) {
     sph_sha256(&ctx_sha256, hash4, 64);  // Use 64 bytes
     sph_sha256_close(&ctx_sha256, hash5);
     printf("After SHA-256 (First): ");
-    print_hash(hash5, 32);
+    print_hash(hash5, 64);
 
     // SHA-256 (Second Round)
     sph_sha256_init(&ctx_sha256);
     sph_sha256(&ctx_sha256, hash5, 64);  // Use 64 bytes
     sph_sha256_close(&ctx_sha256, hash6);
     printf("After SHA-256 (Second): ");
-    print_hash(hash6, 32);
+    print_hash(hash6, 64);
 
     // SHA-256 (Third Round)
     sph_sha256_init(&ctx_sha256);
     sph_sha256(&ctx_sha256, hash6, 64);  // Use 64 bytes
     sph_sha256_close(&ctx_sha256, hash7);
     printf("After SHA-256 (Third): ");
-    print_hash(hash7, 32);
+    print_hash(hash7, 64);
 
     // Copy the final hash (upper 256 bits)
     memcpy(output, hash7 + 32, 32);
