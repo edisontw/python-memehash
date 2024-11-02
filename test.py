@@ -4,12 +4,12 @@ import unittest
 
 # Block 1 header information
 header_hex = (
-    "20000000" +  # Version
+    "20000000" +  # Version (536870912 in decimal)
     "00000a308cc3b469703a3bc1aa55bc251a71c9287d7b413242592c0ab0a31f13" +  # Previous block hash
     "3f7ab2aa69fd0ea038de256393455890e45cba83ca0f76fc506c416c96109014" +  # Merkle root hash
-    "646da2eb" +  # Timestamp
+    "646da2eb" +  # Timestamp (1683906283 in decimal)
     "1e0fffff" +  # Difficulty target
-    "05e1e1d"  # Nonce
+    "05e1e1d"  # Nonce (385501 in decimal)
 )
 
 # Known correct hash value for block 1
