@@ -1,5 +1,3 @@
-所有的函數處理都是64，抱括SHA-256，最後輸出的結果再 trim256
-
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include "memehash.h"
