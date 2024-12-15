@@ -4,7 +4,7 @@ memehash_module = Extension('meme_hash',
     sources = [
         'mememodule.c',
         'memehash.c',
-        'sha3/xelisv2.c',
+        'xelisv2.c',
         'sha3/blake.c',
         'sha3/cubehash.c',
         'sha3/shavite.c',
