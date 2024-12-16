@@ -17,7 +17,7 @@ memehash_module = Extension(
         '-O2', '-fPIC', '-funroll-loops', '-fomit-frame-pointer',
         '-DSPH_SMALL_FOOTPRINT=1', '-DSHA2_INCLUDE_SHA224'
     ],
-    define_macros = [
+    define_macros=[
         ('SPH_SMALL_FOOTPRINT', '1'),
         ('SPH_COMPACT_BLAKE', '1')
     ]
