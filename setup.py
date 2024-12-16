@@ -1,10 +1,10 @@
 from setuptools import setup, Extension
 
-memehash_module = Extension('meme_hash',
+memehash_module = Extension(
+    'meme_hash',
     sources = [
         'mememodule.c',
         'memehash.c',
-        'xelisv2.c',
         'sha3/blake.c',
         'sha3/cubehash.c',
         'sha3/shavite.c',
@@ -13,11 +13,17 @@ memehash_module = Extension('meme_hash',
         'sha3/sha2.c'
     ],
     include_dirs = ['.', './sha3'],
-    extra_compile_args = ['-O2', '-fPIC', '-funroll-loops', '-fomit-frame-pointer', '-DSPH_SMALL_FOOTPRINT=1', '-DSHA2_INCLUDE_SHA224'],
-    define_macros = [('SPH_SMALL_FOOTPRINT', '1'), ('SPH_COMPACT_BLAKE', '1')]
+    extra_compile_args = [
+        '-O2', '-fPIC', '-funroll-loops', '-fomit-frame-pointer',
+        '-DSPH_SMALL_FOOTPRINT=1', '-DSHA2_INCLUDE_SHA224'
+    ],
+    define_macros = [
+        ('SPH_SMALL_FOOTPRINT', '1'),
+        ('SPH_COMPACT_BLAKE', '1')
+    ]
 )
 
-setup (
+setup(
     name = 'meme_hash',
     version = '1.0',
     description = 'Bindings for Memehash proof of work function',
